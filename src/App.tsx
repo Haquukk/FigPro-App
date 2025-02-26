@@ -10,7 +10,7 @@ import {
   useRedo,
   useStorage,
   useUndo,
-} from "../liveblocks.config";
+} from "../liveblocks.config"
 import { useRef, useEffect, useState } from "react";
 import { FabricObject, Canvas } from "fabric";
 import {
