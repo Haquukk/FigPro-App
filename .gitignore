@@ -11,7 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
-# liveblocks.config.ts
+liveblocks.config.ts
 
 # Editor directories and files
 .vscode/*
