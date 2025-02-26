@@ -16,6 +16,7 @@ export const createRectangle = (pointer: PointerEvent) => {
     width: 100,
     height: 100,
     fill: "#aabbcc",
+    stroke: "#aabbcc",
     objectId: uuidv4(),
   } as CustomFabricObject<Rect>);
 
@@ -29,6 +30,7 @@ export const createTriangle = (pointer: PointerEvent) => {
     width: 100,
     height: 100,
     fill: "#aabbcc",
+    stroke: "#aabbcc",
     objectId: uuidv4(),
   } as CustomFabricObject<Triangle>);
 };
@@ -39,6 +41,7 @@ export const createCircle = (pointer: PointerEvent) => {
     top: pointer.y,
     radius: 100,
     fill: "#aabbcc",
+    stroke: "#aabbcc",
     objectId: uuidv4(),
   } as any);
 };
@@ -47,6 +50,7 @@ export const createLine = (pointer: PointerEvent) => {
   return new Line(
     [pointer.x, pointer.y, pointer.x + 100, pointer.y + 100],
     {
+      fill: "#aabbcc",
       stroke: "#aabbcc",
       strokeWidth: 2,
       objectId: uuidv4(),
@@ -58,6 +62,7 @@ export const createText = (pointer: PointerEvent, text: string) => {
     left: pointer.x,
     top: pointer.y,
     fill: "#aabbcc",
+    stroke: "#aabbcc",
     fontFamily: "Helvetica",
     fontSize: 36,
     fontWeight: "400",
@@ -132,7 +137,7 @@ export const handleImageUpload = ({
 
         img.set({objectId: uuidv4(),
           backgroundColor: "#000000",
-          stroke: "#ffffff",
+          stroke: "#000000",
           fill: rgbToHex(img.fill)
         });
         
@@ -187,8 +192,8 @@ export const modifyShape = ({
     if (selectedElement[property as keyof object] === value) return;
     selectedElement.set(property as keyof object, value);
   }
-  // set selectedElement to activeObjectRef
-  activeObjectRef.current = selectedElement;
+  // // set selectedElement to activeObjectRef
+  // activeObjectRef.current = selectedElement;
 
   syncShapeInStorage(selectedElement);
 };

@@ -3,10 +3,11 @@ import { getShapeInfo } from "@/lib/utils";
 
 const LeftSidebar = ({
   allShapes,
+  handleActiveShapeSelection,
 }: {
   allShapes: Array<any>;
+  handleActiveShapeSelection: (e: any) => void;
 }) => {
-  // memoize the result of this function so that it doesn't change on every render but only when there are new shapes
   const memoizedShapes = useMemo(
     () => (
       <section className='border-primary-grey-200 bg-primary-black text-primary-grey-300 sticky left-0 flex h-full min-w-[227px] flex-col overflow-y-auto border-t pb-20 select-none max-sm:hidden'>
@@ -19,6 +20,9 @@ const LeftSidebar = ({
 
             return (
               <div
+                onClick={() =>
+                  handleActiveShapeSelection(shape)
+                }
                 key={shape[1]?.objectId}
                 className='group hover:bg-primary-green hover:text-primary-black my-1 flex items-center gap-2 px-5 py-2.5 hover:cursor-pointer'
               >

@@ -20,13 +20,13 @@ export const initializeFabric = ({
   fabricRef,
   canvasRef,
 }: {
-  fabricRef: React.MutableRefObject<fabric.Canvas | null>;
-  canvasRef: React.MutableRefObject<HTMLCanvasElement | null>;
+  fabricRef: React.RefObject<fabric.Canvas | null>;
+  canvasRef: React.RefObject<HTMLCanvasElement | null>;
 }) => {
   const canvasElement = document.getElementById("canvas") as HTMLCanvasElement;
+  
   // create fabric canvas
-
-  const canvas = new fabric.Canvas(canvasRef.current!, {
+  const canvas = new fabric.Canvas(canvasRef.current || canvasElement, {
     width: canvasElement?.clientWidth,
     height: canvasElement?.clientHeight,
   });
@@ -185,7 +185,6 @@ export const handleCanvasObjectModified = ({
   if (!target) return;
 
   if (target?.type === "activeselection" ) {
-
   } else {
     syncShapeInStorage(target);
   }
@@ -267,7 +266,6 @@ export const handleCanvasSelectionCreated = ({
   // if only one element is selected, set element attributes
   if (selectedElement && options.selected.length === 1) {
     // calculate scaled dimensions of the object
-
     const scaledWidth = selectedElement?.scaleX
     ? selectedElement?.width * selectedElement?.scaleX
     : selectedElement?.width;
@@ -315,6 +313,7 @@ export const handleCanvasObjectScaling = ({
   }));
 };
 
+
 // Render canvas objects coming from storage on canvas
 export const renderCanvas = async ({
   fabricRef,
@@ -328,7 +327,10 @@ export const renderCanvas = async ({
       return;
     }
     // Clear canvas
+    const cachedActiveObject = fabricRef.current.getActiveObject() as (fabric.Object & { objectId?: string })
     fabricRef.current.clear();
+
+    // console.log(cachedActiveObject)
 
     // Render all objects on canvas
     Array.from(canvasObjects, async ([objectId, objectData]) => {
@@ -339,7 +341,7 @@ export const renderCanvas = async ({
           return;
         }
         
-        // Gunakan API terbaru dengan `options`
+        // Gunakan API terbaru dengan options
         const enlivenedObjects = await fabric.util.enlivenObjects([objectData])
         
         enlivenedObjects.forEach((enlivenedObj) => {
@@ -348,8 +350,9 @@ export const renderCanvas = async ({
             return;
           }
 
-          // Jika objek aktif, set sebagai objek aktif
-          if (activeObjectRef.current?.objectId === objectId) {
+          // Jika objek aktif, set sebagai objek aktif 
+          if (activeObjectRef.current?.objectId === objectId 
+            || cachedActiveObject?.objectId === objectId) {
             fabricRef.current?.setActiveObject(enlivenedObj);
           }
 
@@ -358,7 +361,7 @@ export const renderCanvas = async ({
         });
 
       } catch (error) {
-        console.error(`Error enlivening object with ID ${objectId}:`, error);
+        console.error("Error enlivening object with ID ${objectId}:", error);
       }
     });
 
