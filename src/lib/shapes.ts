@@ -123,7 +123,7 @@ export const handleImageUpload = ({
     
     if(typeof reader.result === "string") {
 
-      const imageURL = reader.result as string;
+      const imageURL = reader.result;
       try {
         const img = await FabricImage.fromURL(imageURL);
         

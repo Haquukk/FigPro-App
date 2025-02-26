@@ -269,11 +269,11 @@ export const handleCanvasSelectionCreated = ({
     // calculate scaled dimensions of the object
 
     const scaledWidth = selectedElement?.scaleX
-    ? selectedElement?.width! * selectedElement?.scaleX
+    ? selectedElement?.width * selectedElement?.scaleX
     : selectedElement?.width;
     
     const scaledHeight = selectedElement?.scaleY
-    ? selectedElement?.height! * selectedElement?.scaleY
+    ? selectedElement?.height * selectedElement?.scaleY
     : selectedElement?.height;
 
     setElementAttributes({
