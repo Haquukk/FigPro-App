@@ -1,0 +1,36 @@
+@import "tailwindcss";
+@plugin "tailwindcss-animate";
+@custom-variant dark (&:is(.dark *));
+
+* {
+  font-family:
+    work sans,
+    sans-serif;
+}
+
+body {
+  background-color: #212630;
+}
+
+@theme {
+  --color-primary-green: oklch(0.72 0.11 178);
+  --color-primary-black: #1a1f27;
+  --color-primary-grey-200: #64748b;
+}
+
+@layer utilities {
+  .no-ring {
+    @apply ring-0 ring-offset-0 outline-none focus:ring-0 focus:ring-offset-0 focus-visible:ring-offset-0;
+  }
+  .input-ring {
+    @apply focus:bg-primary-green h-8 rounded-none border-none bg-transparent ring-offset-0 outline-none focus:ring-1 focus:ring-offset-0 focus-visible:ring-offset-0;
+  }
+  .right-menu-content {
+    @apply bg-primary-black flex w-80 flex-col gap-y-1 border-none py-4 text-white;
+  }
+
+  .right-menu-item {
+    @apply hover:bg-primary-grey-200 flex justify-between px-3 py-2;
+  }
+}
+
